@@ -1,0 +1,98 @@
+//////////webpackage.config.js
+
+module.exports ={
+    mode: "development", 
+    entry: "/src/script.js",
+    output: {
+        path: __dirname,
+        filename: 'dist/build.js'
+    },
+    module: {
+        rules:[{
+            test: /\.css$/,
+            use:[
+            'style-loader',
+            'css-loader'
+            ]
+        }]
+    },
+    devserver:{
+        contextBase : './dist'
+    }
+};
+
+
+
+////////////////////style.css
+div{
+    border: 1px solid red;
+    background: yellow;
+    height: 100px;
+    width: 100px;
+}
+
+
+
+///////////////////script.js
+const $ = require('jquery');
+
+import './style.css';
+
+$(document).ready(function() {
+    $('body').append('<div>hello</div>');
+    $('body').css({background:'orange'});
+});
+
+
+
+
+
+
+
+
+
+//////////////////////index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index.html</title>
+    <script scr="build.js"></script>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+///////////////package.json
+{
+  "name": "sunday01_webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "server": "webpack-dev-server --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "jquery": "^3.4.1",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
+  }
+}
+
