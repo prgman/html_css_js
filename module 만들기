@@ -1,0 +1,18 @@
+let calc = {};
+calc.minus = function(a, b) {
+    return a - b;
+}
+
+calc.plus = function(a,b){
+    return a+b;
+}
+
+// module register
+module.exports = calc;
+
+
+// 모듈 사용.
+
+var calc = require('./day01ex02_module');
+
+console.log('calc.minus(5,3) => ', calc.minus(5,3));
