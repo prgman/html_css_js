@@ -1,0 +1,31 @@
+const http = require('http');
+const fs = require('fs');
+
+
+
+//let은 지역성이 있다.
+let host = "http://localhost";
+let port = "3004";
+const server = http.createServer();
+server.on('request',(req, res)=> {
+    console.log('requested...');
+//    res.end('<h1>hello nodejs</h1>');
+    res.writeHead(200,{'Content-Type':'text/html;charset=utf8'});
+    var input =fs.createReadStream('output.txt','utf8');
+    input.pipe(res);
+    
+    server.close();
+});
+
+server.on('connect', (socket)=>{
+    console.log('connecting...');
+});
+
+server.on('close',()=>{
+   console.log('close... connection.') ;
+});
+
+server.listen(port,function(){
+    console.log(`server excuting... ${host}:${port}`);    
+});
+
