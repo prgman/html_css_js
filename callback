@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>day01ex08_callback.html</title>
+    <style>
+        div#box{
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            position: absolute;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        var move = function(select, callback){
+            var box = $(select).get(0);
+            box.callback = callback;
+            var x=0;
+            var speed =10;
+            var fn = setInterval(function() {
+                x += speed;
+                if(x>=300){
+                    clearInterval(fn);
+                    box.callback();
+                }
+                box.style.left = x + "px";
+            },1000/30);
+        };
+        $(document).ready(function(){
+            move("#box",function(){
+                this.style.background = "blue";
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="box">Box</div>
+</body>
+</html>
