@@ -1,0 +1,45 @@
+const http = require('http');
+const express = require('express');
+const app = express();
+
+// static 설정을 위한 serve-static 모듈 불러오기
+// > npm i -S serve-static
+const static = require('serve-static');
+app.use('/public', static(__dirname + '/public'));
+
+app.set('port', 3000);
+app.set('view engine', 'ejs'); // 파일 확장자
+app.set('views', __dirname + '/views'); //절대경로
+
+app.get('/', function(req, res) {
+    console.log('/ 경로이므로 index.html로 리다이렉트 함');
+    res.redirect('/public/index.html');
+});
+
+// URL get
+app.get('/home', function(req, res) {
+    console.log('GET - /home');
+    req.app.render('home',{},function(err, html) {
+        if(err){
+            throw err;
+        }
+        res.end(html);
+    });
+    //res.end('<h2>home</h2>');
+});
+
+app.get('/profile', function(req, res) {
+    console.log('GET - /profile');
+    req.app.render('profile',{}, function(err, html) {
+        if(err) {
+            throw err;
+        }
+        res.end(html);
+    })
+    //res.end('<h2>profile</h2>');
+});
+
+const server = http.createServer(app);
+server.listen(app.get('port'), function() {
+    console.log(`http://localhost:${app.get('port')}`);
+});
